@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_sqlite"
+            android:icon="@drawable/ic_menu_sqlite"
+            android:title="@string/menu_sqlite" />
+        <item
+            android:id="@+id/nav_postgresql"
+            android:icon="@drawable/ic_menu_postgresql"
+            android:title="@string/menu_postgresql" />
+        <item
+            android:id="@+id/nav_firebase"
+            android:icon="@drawable/ic_menu_firebase"
+            android:title="@string/menu_firebase" />
+    </group>
+
+</menu>

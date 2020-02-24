@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/firebase"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.android.alejandroquiroga.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_sqlite"
+        android:name="com.android.alejandroquiroga.ui.sqlite.SQLiteFragment"
+        android:label="@string/menu_sqlite"
+        tools:layout="@layout/fragment_sqlite" />
+
+    <fragment
+        android:id="@+id/nav_postgresql"
+        android:name="com.android.alejandroquiroga.ui.postgresql.PostgresqlFragment"
+        android:label="@string/menu_postgresql"
+        tools:layout="@layout/fragment_postgresql" />
+
+    <fragment
+        android:id="@+id/nav_firebase"
+        android:name="com.android.alejandroquiroga.ui.firebase.FirebaseFragment"
+        android:label="@string/menu_firebase"
+        tools:layout="@layout/fragment_firebase" />
+</navigation>
