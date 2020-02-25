@@ -1,5 +1,6 @@
 package com.android.alejandroquiroga;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.navigation.NavController;
@@ -19,16 +20,23 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-
+    private static Context ctx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        ctx = this;
         Log.d("test", "test");
-        new FirebaseViewModel().WriteOnFirebase(new ExampleElement());
-        Log.d("tost", "onCreate: flas");
+        //new FirebaseViewModel().WriteOnFirebase(new ExampleElement());
+        //AccessData.getAccessData(this).saveExampleElement(new ExampleElement());
+        List<ExampleElement> ee = AccessData.getAccessData(this).getExampleElements();
+        Log.d("test", "onCreate: " + ee.get(0).getId());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -59,5 +67,9 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public static Context getContext(){
+        return ctx;
     }
 }

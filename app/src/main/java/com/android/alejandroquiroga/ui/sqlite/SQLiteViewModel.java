@@ -1,19 +1,33 @@
 package com.android.alejandroquiroga.ui.sqlite;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.android.alejandroquiroga.AccessData;
+import com.android.alejandroquiroga.MainActivity;
+import com.android.alejandroquiroga.Models.ExampleElement;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class SQLiteViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private ArrayList<String> showingList;
 
-    public SQLiteViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is sqlite fragment");
+    public SQLiteViewModel() { showingList = new ArrayList<String>(); }
+
+    public ArrayList<String> getElementsList() {
+        return showingList;
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void readElementsList(){
+        final List<ExampleElement> exampleElementList = AccessData.getAccessData(MainActivity.getContext()).getExampleElements();
+        for(ExampleElement e : exampleElementList){
+            showingList.add(e.getId());
+            Log.d("tist", "readElementsList: " + e.getId());
+        }
     }
 }

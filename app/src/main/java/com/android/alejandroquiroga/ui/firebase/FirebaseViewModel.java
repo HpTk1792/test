@@ -22,14 +22,13 @@ public class FirebaseViewModel extends ViewModel {
         showingList = new MutableLiveData<>();
     }
 
-    public LiveData<ArrayList<String>> getlistaMensajes() { return showingList; }
+    public LiveData<ArrayList<String>> getElementsList() { return showingList; }
 
-    public void readlistaMensajes() {
+    public void readElementsList() {
 
         final ArrayList<String> exampleElementList = new ArrayList<>();
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-
         db.child("ExamenDb").child("ExampleElements").addValueEventListener(new ValueEventListener() {
 
             @Override
