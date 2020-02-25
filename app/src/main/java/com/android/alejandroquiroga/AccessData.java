@@ -8,6 +8,7 @@ import androidx.room.Room;
 import com.android.alejandroquiroga.Models.ExampleElement;
 import com.android.alejandroquiroga.Models.ExampleElementDao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -44,51 +45,21 @@ public class AccessData {
         return sAccessData;
     }
 
+    //SQLite Methods
 
-    /**
-     * Method get all exampleElements on file users
-     *
-     * @return List<ExampleElement>
-     */
-    public List<ExampleElement> getExampleElements(){
-        return exampleElementDao.getExampleElements();
-    }
-
-    /**
-     * Method for save exampleElement into SQLite
-     *
-     * @param exampleElement Object User
-     */
-    public void saveExampleElement(ExampleElement exampleElement){
-        exampleElementDao.addExampleElement(exampleElement);
-    }
-
-    /**
-     * Method for update a exampleElement into SQLite
-     *
-     * @param exampleElement
-     */
-
-    public void updateExampleElement(ExampleElement exampleElement){
-        exampleElementDao.updateExampleElement(exampleElement);
-    }
-
-    /**
-     * Method for delete a exampleElement into SQLite
-     *
-     * @param exampleElement
-     */
-
-    public void deleteExampleElement(ExampleElement exampleElement){
-        exampleElementDao.deleteExampleElement(exampleElement);
-    }
-
-
-
+    public List<ExampleElement> getExampleElements(){ return exampleElementDao.getExampleElements(); }
+    public ExampleElement getExampleElement(String id) { return exampleElementDao.getExampleElement(id); }
+    public void saveExampleElement(ExampleElement exampleElement){ exampleElementDao.addExampleElement(exampleElement); }
+    public void updateExampleElement(ExampleElement exampleElement){ exampleElementDao.updateExampleElement(exampleElement); }
+    public void deleteExampleElement(ExampleElement exampleElement){ exampleElementDao.deleteExampleElement(exampleElement); }
 
     //PostgreSQL
 
-    public void insertInPostgres(final ExampleElement exampleElement){
+    private ArrayList<ExampleElement> test = new ArrayList<ExampleElement>();
+
+    public ArrayList<ExampleElement> getPostgresList(){ return test; }
+
+    public void insertInPostgres(final ExampleElement exampleElement, String query){
 
         Thread hiloPostgres = new Thread() {
             @Override
@@ -115,4 +86,62 @@ public class AccessData {
         };
         hiloPostgres.start();
     }
+
+    public void updateInPostgres(final ExampleElement exampleElement, int id){
+
+        Thread hiloPostgres = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Class.forName("org.postgresql.Driver");
+
+                    conn = DriverManager.getConnection(url, user, pwd);
+
+                    Statement st = conn.createStatement();
+
+                    st.executeUpdate("UPDATE ExampleElementTable " +
+                            "SET Attribute1 = '" + exampleElement.getAttribute1() + "'," +
+                            "Attribute2 = '" + exampleElement.getAttribute2() + "'," +
+                            "Attribute3 = '" + exampleElement.getAttribute3() + "'" +
+                            "WHERE Id = '" + exampleElement.getId() + "';");
+
+                    conn.close();
+                } catch (SQLException sqle) {
+                    sqle.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        hiloPostgres.start();
+    }
+
+    public void getInPostgres(final ExampleElement exampleElement, int id){
+
+
+        Thread hiloPostgres = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Class.forName("org.postgresql.Driver");
+
+                    conn = DriverManager.getConnection(url, user, pwd);
+
+                    Statement st = conn.createStatement();
+
+                    test = (ArrayList<ExampleElement>) st.executeQuery("SELECT *" +
+                            "FROM ExampleElementTable");
+
+                    conn.close();
+
+                } catch (SQLException sqle) {
+                    sqle.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        hiloPostgres.start();
+    }
+
 }

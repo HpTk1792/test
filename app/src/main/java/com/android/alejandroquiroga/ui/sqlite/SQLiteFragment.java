@@ -52,6 +52,7 @@ public class SQLiteFragment extends Fragment {
 
     public class SQLiteAdapter extends RecyclerView.Adapter<SQLiteViewHolder> {
 
+
         private ArrayList<String> sqliteElementsLits;
 
         public SQLiteAdapter(ArrayList<String> sqliteElementsLits) {
