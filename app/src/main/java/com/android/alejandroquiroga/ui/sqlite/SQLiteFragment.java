@@ -84,7 +84,6 @@ public class SQLiteFragment extends Fragment {
         @Override
         public SQLiteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.viewholder_sqlite, parent, false);
-            view.setOnClickListener(mOnClickListener);
             return new SQLiteViewHolder(view);
         }
 

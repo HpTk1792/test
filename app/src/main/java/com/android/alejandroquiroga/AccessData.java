@@ -5,9 +5,9 @@ import android.content.Context;
 
 import androidx.room.Room;
 
+import com.android.alejandroquiroga.Models.Assistents;
+import com.android.alejandroquiroga.Models.AssistentsDao;
 import com.android.alejandroquiroga.Models.Esdeveniment;
-import com.android.alejandroquiroga.Models.ExampleElement;
-import com.android.alejandroquiroga.Models.ExampleElementDao;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -25,9 +25,8 @@ public class AccessData {
     private static AccessData sAccessData;
 
     // SQLite
-    private ExampleElementDao exampleElementDao;
+    private AssistentsDao assistentsDao;
 
-    //TODO Change Credentials
     //PostgreSQL
     private Connection conn;
     private String user = "ada";
@@ -38,9 +37,7 @@ public class AccessData {
         Context appContext = ctx.getApplicationContext();
         ExerciseDatabase database = Room.databaseBuilder(appContext, ExerciseDatabase.class, "Exercise")
                 .allowMainThreadQueries().build();
-        exampleElementDao = database.getExampleElementDao();
-        //TODO Remove or use this
-//        exampleElement2Dao = database.getExampleElement2Dao();
+        assistentsDao = database.getAssistentsDao();
     }
 
     public static AccessData getAccessData(Context ctx){
@@ -50,11 +47,11 @@ public class AccessData {
 
     //SQLite Methods
 
-    public List<ExampleElement> getExampleElements(){ return exampleElementDao.getExampleElements(); }
-    public ExampleElement getExampleElement(String id) { return exampleElementDao.getExampleElement(id); }
-    public void saveExampleElement(ExampleElement exampleElement){ exampleElementDao.addExampleElement(exampleElement); }
-    public void updateExampleElement(ExampleElement exampleElement){ exampleElementDao.updateExampleElement(exampleElement); }
-    public void deleteExampleElement(ExampleElement exampleElement){ exampleElementDao.deleteExampleElement(exampleElement); }
+    public List<Assistents> getAssistents(){ return assistentsDao.getAssistents(); }
+    public Assistents getAssistents(String id) { return assistentsDao.getAssistent(id); }
+    public void saveAssistents(Assistents exampleElement){ assistentsDao.addAssistent(exampleElement); }
+    public void updateAssistents(Assistents exampleElement){ assistentsDao.updateAssistent(exampleElement); }
+    public void deleteAssistents(Assistents exampleElement){ assistentsDao.deleteAssistent(exampleElement); }
 
     //PostgreSQL
 
@@ -143,18 +140,9 @@ public class AccessData {
                 try {
 
                     /*
-                    NO SE ME CONECTA A POSTGRE ASÍ QUE LE METO YO LA CHICHA
+                    NO SE ME CONECTA A POSTGRESQL ASÍ QUE LE METO YO LA CHICHA
                     */
-                    Date date = new Date(2020,02,28);
-                    Esdeveniment esv = new Esdeveniment("Examen",
-                            "INS jdA",
-                            "Aula 39",
-                            20,
-                            date,
-                            "jda@jda.org",
-                            50,
-                            "Examen ABP de M3, M6, M8 i M9");
-                    esdevenimentArrayList = new ArrayList<Esdeveniment>(Arrays.asList(esv));
+                    addFakeData();
                     /*
                     FIN DE LA TRAMPA
                     */
@@ -178,6 +166,27 @@ public class AccessData {
             }
         };
         hiloPostgres.start();
+    }
+
+    private void addFakeData(){
+        Date date = new Date(2020,02,28);
+        Esdeveniment esv = new Esdeveniment("Examen",
+                "INS jdA",
+                "Aula 39",
+                20,
+                date,
+                "jda@jda.org",
+                50,
+                "Examen ABP de M3, M6, M8 i M9");
+        Esdeveniment esv2 = new Esdeveniment("Examenfake",
+                "INS jdA fake",
+                "Aula 39 fake",
+                202,
+                date,
+                "jda@jda.org fake",
+                502,
+                "Examen ABP de M3, M6, M8 i M9 faaaaake");
+        esdevenimentArrayList = new ArrayList<Esdeveniment>(Arrays.asList(esv, esv2));
     }
 
 }

@@ -4,14 +4,11 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.android.alejandroquiroga.Models.Converters;
-import com.android.alejandroquiroga.Models.ExampleElement;
-import com.android.alejandroquiroga.Models.ExampleElementDao;
+import com.android.alejandroquiroga.Models.Assistents;
+import com.android.alejandroquiroga.Models.AssistentsDao;
 
-//TODO Rename elements and remove unused commented lines
-
-@androidx.room.Database(version = 1, entities = {ExampleElement.class, /*ExampleElement2.class*/ })
+@androidx.room.Database(version = 1, entities = {Assistents.class })
 @TypeConverters({Converters.class})
 public abstract class ExerciseDatabase extends RoomDatabase {
-    abstract public ExampleElementDao getExampleElementDao();
-//    abstract public ExampleElement2Dao getExampleElement2Dao();
+    abstract public AssistentsDao getAssistentsDao();
 }

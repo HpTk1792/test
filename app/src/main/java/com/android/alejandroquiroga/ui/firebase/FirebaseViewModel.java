@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.android.alejandroquiroga.Models.ExampleElement;
 import com.android.alejandroquiroga.Models.Missatges;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

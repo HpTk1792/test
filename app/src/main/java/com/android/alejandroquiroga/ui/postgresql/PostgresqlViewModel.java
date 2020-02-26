@@ -1,15 +1,10 @@
 package com.android.alejandroquiroga.ui.postgresql;
 
-import android.util.Log;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.android.alejandroquiroga.AccessData;
 import com.android.alejandroquiroga.MainActivity;
 import com.android.alejandroquiroga.Models.Esdeveniment;
-import com.android.alejandroquiroga.Models.ExampleElement;
 
 import java.util.ArrayList;
 import java.util.List;

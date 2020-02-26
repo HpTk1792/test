@@ -1,14 +1,10 @@
 package com.android.alejandroquiroga.ui.sqlite;
 
-import android.util.Log;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.android.alejandroquiroga.AccessData;
 import com.android.alejandroquiroga.MainActivity;
-import com.android.alejandroquiroga.Models.ExampleElement;
+import com.android.alejandroquiroga.Models.Assistents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +20,9 @@ public class SQLiteViewModel extends ViewModel {
     }
 
     public void readElementsList(){
-        final List<ExampleElement> exampleElementList = AccessData.getAccessData(MainActivity.getContext()).getExampleElements();
-        for(ExampleElement e : exampleElementList){
+        final List<Assistents> assistentsList = AccessData.getAccessData(MainActivity.getContext()).getAssistents();
+        for(Assistents e : assistentsList){
             showingList.add(e.getId());
-            Log.d("tist", "readElementsList: " + e.getId());
         }
     }
 }

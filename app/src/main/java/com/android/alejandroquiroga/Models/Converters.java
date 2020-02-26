@@ -3,8 +3,6 @@ package com.android.alejandroquiroga.Models;
 import java.util.Date;
 import androidx.room.TypeConverter;
 
-//TODO Remove if unused
-
 public class Converters {
     @TypeConverter
     public static Date fromTimestamp(Long value) {
