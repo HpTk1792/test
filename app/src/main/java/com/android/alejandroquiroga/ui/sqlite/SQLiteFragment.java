@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -52,6 +53,14 @@ public class SQLiteFragment extends Fragment {
 
     public class SQLiteAdapter extends RecyclerView.Adapter<SQLiteViewHolder> {
 
+        private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int itemPosition = recyclerView.getChildLayoutPosition(v);
+                String item = sqliteElementsLits.get(itemPosition);
+                Toast.makeText(getContext(), item, Toast.LENGTH_LONG).show();
+            }
+        };
 
         private ArrayList<String> sqliteElementsLits;
 
@@ -62,7 +71,9 @@ public class SQLiteFragment extends Fragment {
         @NonNull
         @Override
         public SQLiteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new SQLiteViewHolder(getLayoutInflater().inflate(R.layout.viewholder_sqlite, parent, false));
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.viewholder_sqlite, parent, false);
+            view.setOnClickListener(mOnClickListener);
+            return new SQLiteViewHolder(view);
         }
 
         @Override
