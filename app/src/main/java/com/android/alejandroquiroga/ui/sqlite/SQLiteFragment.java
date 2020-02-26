@@ -9,11 +9,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.alejandroquiroga.R;
+import com.android.alejandroquiroga.ui.edit.EditFragment;
 
 import java.util.ArrayList;
 
@@ -58,7 +60,16 @@ public class SQLiteFragment extends Fragment {
             public void onClick(View v) {
                 int itemPosition = recyclerView.getChildLayoutPosition(v);
                 String item = sqliteElementsLits.get(itemPosition);
-                Toast.makeText(getContext(), item, Toast.LENGTH_LONG).show();
+                Fragment editFragment = new EditFragment();
+
+//                final FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+//                ft.replace(R.id.EditFragment, new EditFragment(), "NewFragmentTag");
+//                ft.commit();
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(
+                        R.id.EditFragment, new EditFragment()).commit();
+//
+//                Toast.makeText(getContext(), item, Toast.LENGTH_LONG).show();
             }
         };
 
