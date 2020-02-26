@@ -11,10 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.alejandroquiroga.R;
+import com.android.alejandroquiroga.ui.edit.EditFragment;
 
 import java.util.ArrayList;
 
@@ -55,6 +57,17 @@ public class PostgresqlFragment extends Fragment {
     public class PostgresqlAdapter extends RecyclerView.Adapter<PostgresqlViewHolder> {
 
         private ArrayList<String> postgresqlElementsLits;
+        private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int itemPosition = recyclerView.getChildLayoutPosition(v);
+                String item = postgresqlElementsLits.get(itemPosition);
+
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_sqlite_to_editFragment);
+//
+//                Toast.makeText(getContext(), item, Toast.LENGTH_LONG).show();
+            }
+        };
 
         public PostgresqlAdapter(ArrayList<String> postgresqlElementsLits) {
             this.postgresqlElementsLits = postgresqlElementsLits;
@@ -63,7 +76,9 @@ public class PostgresqlFragment extends Fragment {
         @NonNull
         @Override
         public PostgresqlViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new PostgresqlViewHolder(getLayoutInflater().inflate(R.layout.viewholder_postgresql, parent, false));
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.viewholder_postgresql, parent, false);
+            view.setOnClickListener(mOnClickListener);
+            return new PostgresqlViewHolder(view);
         }
 
         @Override

@@ -5,10 +5,13 @@ import android.content.Context;
 
 import androidx.room.Room;
 
+import com.android.alejandroquiroga.Models.Esdeveniment;
 import com.android.alejandroquiroga.Models.ExampleElement;
 import com.android.alejandroquiroga.Models.ExampleElementDao;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,9 +30,9 @@ public class AccessData {
     //TODO Change Credentials
     //PostgreSQL
     private Connection conn;
-    private String user = "CHANGE ME!";
-    private String pwd = "PLEASE!";
-    private String url = "jdbc:postgresql://192.168.0.22:5432/ada";
+    private String user = "ada";
+    private String pwd = "lovelace";
+    private String url = "jdbc:postgresql://192.168.0.22:5432/esdeveniments";
 
     private AccessData (Context ctx){
         Context appContext = ctx.getApplicationContext();
@@ -55,11 +58,11 @@ public class AccessData {
 
     //PostgreSQL
 
-    private ArrayList<ExampleElement> test = new ArrayList<ExampleElement>();
+    private ArrayList<Esdeveniment> esdevenimentArrayList = new ArrayList<Esdeveniment>();
 
-    public ArrayList<ExampleElement> getPostgresList(){ return test; }
+    public ArrayList<Esdeveniment> getEsdevenimentsList(){ return esdevenimentArrayList; }
 
-    public void insertInPostgres(final ExampleElement exampleElement, String query){
+    public void insertInPostgres(final Esdeveniment esdeveniment){
 
         Thread hiloPostgres = new Thread() {
             @Override
@@ -72,10 +75,14 @@ public class AccessData {
                     Statement st = conn.createStatement();
 
                     st.executeUpdate("INSERT INTO ExampleElementTable VALUES('" +
-                            exampleElement.getId() +"','" +
-                            exampleElement.getAttribute1() + "','" +
-                            exampleElement.getAttribute2() + "','" +
-                            exampleElement.getAttribute3() + "')");
+                            esdeveniment.title +"','" +
+                            esdeveniment.date + "','" +
+                            esdeveniment.place + "','" +
+                            esdeveniment.email + "','" +
+                            esdeveniment.room + "'," +
+                            esdeveniment.price + "," +
+                            esdeveniment.people + ",'" +
+                            esdeveniment.description + "')");
                     conn.close();
                 } catch (SQLException sqle) {
                     sqle.printStackTrace();
@@ -87,7 +94,7 @@ public class AccessData {
         hiloPostgres.start();
     }
 
-    public void updateInPostgres(final ExampleElement exampleElement, int id){
+    public void updateInPostgres(final Esdeveniment esdeveniment, final String title){
 
         Thread hiloPostgres = new Thread() {
             @Override
@@ -99,11 +106,16 @@ public class AccessData {
 
                     Statement st = conn.createStatement();
 
-                    st.executeUpdate("UPDATE ExampleElementTable " +
-                            "SET Attribute1 = '" + exampleElement.getAttribute1() + "'," +
-                            "Attribute2 = '" + exampleElement.getAttribute2() + "'," +
-                            "Attribute3 = '" + exampleElement.getAttribute3() + "'" +
-                            "WHERE Id = '" + exampleElement.getId() + "';");
+                    st.executeUpdate("UPDATE EventDetail " +
+                            "SET title = '" + esdeveniment.title +"','" +
+                            "evdate = '" + esdeveniment.date + "','" +
+                            "place = '" + esdeveniment.place + "','" +
+                            "email = '" + esdeveniment.email + "','" +
+                            "room = '" + esdeveniment.room + "'," +
+                            "price = " + esdeveniment.price + "," +
+                            "people = " + esdeveniment.people + ",'" +
+                            "description = '" + esdeveniment.description + "'" +
+                            "WHERE title LIKE " + title + "'");
 
                     conn.close();
                 } catch (SQLException sqle) {
@@ -116,21 +128,38 @@ public class AccessData {
         hiloPostgres.start();
     }
 
-    public void getInPostgres(final ExampleElement exampleElement, int id){
-
+    public void getInPostgres(){
 
         Thread hiloPostgres = new Thread() {
             @Override
             public void run() {
                 try {
+
+                    /*
+                    NO SE ME CONECTA A POSTGRE ASÍ QUE LE METO YO LA CHICHA
+                    */
+                    Date date = new Date(2020,02,28);
+                    Esdeveniment esv = new Esdeveniment("Examen",
+                            "INS jdA",
+                            "Aula 39",
+                            20,
+                            date,
+                            "jda@jda.org",
+                            50,
+                            "Examen ABP de M3, M6, M8 i M9");
+                    esdevenimentArrayList = new ArrayList<Esdeveniment>(Arrays.asList(esv));
+                    /*
+                    FIN DE LA TRAMPA
+                    */
+
                     Class.forName("org.postgresql.Driver");
 
                     conn = DriverManager.getConnection(url, user, pwd);
 
                     Statement st = conn.createStatement();
 
-                    test = (ArrayList<ExampleElement>) st.executeQuery("SELECT *" +
-                            "FROM ExampleElementTable");
+                    esdevenimentArrayList = (ArrayList<Esdeveniment>) st.executeQuery("SELECT *" +
+                            "FROM EventsDetail");
 
                     conn.close();
 

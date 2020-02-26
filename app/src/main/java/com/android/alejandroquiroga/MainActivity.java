@@ -9,6 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.android.alejandroquiroga.Models.ExampleElement;
+import com.android.alejandroquiroga.Models.Missatges;
 import com.android.alejandroquiroga.ui.firebase.FirebaseViewModel;
 import com.google.android.material.navigation.NavigationView;
 
@@ -25,16 +26,21 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private boolean y = true;
     private AppBarConfiguration mAppBarConfiguration;
     private static Context ctx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         ctx = this;
-        Log.d("test", "test");
-        new FirebaseViewModel().WriteOnFirebase(new ExampleElement());
+
+        //new FirebaseViewModel().WriteOnFirebase(new Missatges("1", "TestMissatge3 jojó"));
+
+        if(y)AccessData.getAccessData(this).getInPostgres();
+        y = false;
+
         //AccessData.getAccessData(this).saveExampleElement(new ExampleElement());
-        List<ExampleElement> ee = AccessData.getAccessData(this).getExampleElements();
+        //List<ExampleElement> ee = AccessData.getAccessData(this).getExampleElements();
         //Log.d("test", "onCreate: " + ee.get(0).getId());
 
         super.onCreate(savedInstanceState);

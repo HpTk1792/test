@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.android.alejandroquiroga.AccessData;
 import com.android.alejandroquiroga.MainActivity;
+import com.android.alejandroquiroga.Models.Esdeveniment;
 import com.android.alejandroquiroga.Models.ExampleElement;
 
 import java.util.ArrayList;
@@ -24,9 +25,9 @@ public class PostgresqlViewModel extends ViewModel {
     }
 
     public void readElementsList(){
-        final List<ExampleElement> exampleElementList = AccessData.getAccessData(MainActivity.getContext()).getExampleElements();
-        for(ExampleElement e : exampleElementList){
-            showingList.add(e.getId());
+        final List<Esdeveniment> esdevenimentList = AccessData.getAccessData(MainActivity.getContext()).getEsdevenimentsList();
+        for(Esdeveniment e : esdevenimentList){
+            showingList.add(e.title);
         }
     }
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.android.alejandroquiroga.Models.ExampleElement;
+import com.android.alejandroquiroga.Models.Missatges;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,18 +27,19 @@ public class FirebaseViewModel extends ViewModel {
 
     public void readElementsList() {
 
-        final ArrayList<String> exampleElementList = new ArrayList<>();
+        final ArrayList<String> missatgesList = new ArrayList<>();
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        db.child("ExamenDb").child("ExampleElements").addValueEventListener(new ValueEventListener() {
+
+        db.child("ExamenDb").child("Missatges").addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot i : dataSnapshot.getChildren()) {
-                    ExampleElement exampleElement = i.getValue(ExampleElement.class);
-                    exampleElementList.add(exampleElement.getId());
+                    Missatges missatges = i.getValue(Missatges.class);
+                    missatgesList.add(missatges.getMissatge());
                 }
-                showingList.postValue(exampleElementList);
+                showingList.postValue(missatgesList);
             }
 
             @Override
@@ -46,16 +48,10 @@ public class FirebaseViewModel extends ViewModel {
         });
     }
 
-    public void WriteOnFirebase(ExampleElement exampleElement){
+    public void WriteOnFirebase(Missatges missatge){
 
-        exampleElement = new ExampleElement("1", "2", "3");
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference msg_reference = db.child("ExamenDb").child("ExampleElements").push();
-        msg_reference.setValue(exampleElement);
-
-//                "pVBEOgINbVOGdkne7Sjhg3ycW6h2", msg));
-//        db.child("ExamenDb").child("usuarios").child("pVBEOgINbVOGdkne7Sjhg3ycW6h2").child("mensaje")
-//                .setValue(msg_reference.getKey());
-
+        DatabaseReference msg_reference = db.child("ExamenDb").child("Missatges").push();
+        msg_reference.setValue(missatge);
     }
 }
