@@ -66,7 +66,6 @@ public class EditFragment extends Fragment {
         tv_people.setText(Integer.toString(esdeveniment.people));
         tv_description.setText(esdeveniment.description);
 
-        bt_update = ui_layout.findViewById(R.id.editImageButton);
         return ui_layout;
     }
 
