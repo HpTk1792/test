@@ -36,7 +36,7 @@ public class EditFragment extends Fragment {
         View ui_layout = inflater.inflate(R.layout.fragment_edit, container, false);
         ExampleElement ee = AccessData.getAccessData(getContext()).getExampleElement(idElement);
         TextView tv = ui_layout.findViewById(R.id.text_edit);
-        tv.setText(ee.getAttribute1());
+        tv.setText("AIM GIER");
 
         return ui_layout;
     }

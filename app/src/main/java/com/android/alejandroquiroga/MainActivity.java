@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
         ctx = this;
         Log.d("test", "test");
-        //new FirebaseViewModel().WriteOnFirebase(new ExampleElement());
+        new FirebaseViewModel().WriteOnFirebase(new ExampleElement());
         //AccessData.getAccessData(this).saveExampleElement(new ExampleElement());
         List<ExampleElement> ee = AccessData.getAccessData(this).getExampleElements();
-        Log.d("test", "onCreate: " + ee.get(0).getId());
+        //Log.d("test", "onCreate: " + ee.get(0).getId());
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

@@ -2,6 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/firebase"
+    xmlns:tools2="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
 
@@ -15,7 +16,11 @@
         android:id="@+id/nav_sqlite"
         android:name="com.android.alejandroquiroga.ui.sqlite.SQLiteFragment"
         android:label="@string/menu_sqlite"
-        tools:layout="@layout/fragment_sqlite" />
+        tools:layout="@layout/fragment_sqlite" >
+        <action
+            android:id="@+id/action_nav_sqlite_to_editFragment"
+            app:destination="@id/editFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_postgresql"
@@ -28,4 +33,9 @@
         android:name="com.android.alejandroquiroga.ui.firebase.FirebaseFragment"
         android:label="@string/menu_firebase"
         tools:layout="@layout/fragment_firebase" />
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.android.alejandroquiroga.ui.edit.EditFragment"
+        android:label="fragment_edit"
+        tools2:layout="@layout/fragment_edit" />
 </navigation>

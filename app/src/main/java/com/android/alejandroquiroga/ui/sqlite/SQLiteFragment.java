@@ -11,9 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.alejandroquiroga.MainActivity;
 import com.android.alejandroquiroga.R;
 import com.android.alejandroquiroga.ui.edit.EditFragment;
 
@@ -66,8 +68,7 @@ public class SQLiteFragment extends Fragment {
 //                ft.replace(R.id.EditFragment, new EditFragment(), "NewFragmentTag");
 //                ft.commit();
 
-                getActivity().getSupportFragmentManager().beginTransaction().replace(
-                        R.id.EditFragment, new EditFragment()).commit();
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_sqlite_to_editFragment);
 //
 //                Toast.makeText(getContext(), item, Toast.LENGTH_LONG).show();
             }
