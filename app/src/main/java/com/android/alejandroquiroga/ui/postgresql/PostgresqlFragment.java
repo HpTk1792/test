@@ -15,6 +15,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.alejandroquiroga.AccessData;
+import com.android.alejandroquiroga.Models.Esdeveniment;
 import com.android.alejandroquiroga.R;
 import com.android.alejandroquiroga.ui.edit.EditFragment;
 
@@ -25,6 +27,7 @@ public class PostgresqlFragment extends Fragment {
     private PostgresqlViewModel postgresqlViewModel;
     private RecyclerView recyclerView;
     private PostgresqlAdapter mAdapter;
+    private static Esdeveniment passEsdeveniment;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -52,7 +55,9 @@ public class PostgresqlFragment extends Fragment {
             textPostgresqlElements = itemView.findViewById(R.id.tv_postgresql);
         }
     }
-
+    public static Esdeveniment getEsdeveniment(){
+        return passEsdeveniment;
+    }
 
     public class PostgresqlAdapter extends RecyclerView.Adapter<PostgresqlViewHolder> {
 
@@ -63,7 +68,10 @@ public class PostgresqlFragment extends Fragment {
                 int itemPosition = recyclerView.getChildLayoutPosition(v);
                 String item = postgresqlElementsLits.get(itemPosition);
 
-                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_sqlite_to_editFragment);
+                Esdeveniment esv = AccessData.getAccessData(getContext()).getEsdevenimentById(item);
+                passEsdeveniment = esv != null ? esv : new Esdeveniment();
+
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.action_nav_postgresql_to_editFragment);
 //
 //                Toast.makeText(getContext(), item, Toast.LENGTH_LONG).show();
             }

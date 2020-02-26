@@ -128,6 +128,13 @@ public class AccessData {
         hiloPostgres.start();
     }
 
+    public Esdeveniment getEsdevenimentById(String title){
+        for(Esdeveniment e : esdevenimentArrayList){
+            if(e.title.equals(title)) return e;
+        }
+        return null;
+    }
+
     public void getInPostgres(){
 
         Thread hiloPostgres = new Thread() {

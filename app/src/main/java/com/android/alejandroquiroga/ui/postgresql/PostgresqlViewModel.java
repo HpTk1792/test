@@ -26,6 +26,7 @@ public class PostgresqlViewModel extends ViewModel {
 
     public void readElementsList(){
         final List<Esdeveniment> esdevenimentList = AccessData.getAccessData(MainActivity.getContext()).getEsdevenimentsList();
+        if(showingList.size() != esdevenimentList.size())
         for(Esdeveniment e : esdevenimentList){
             showingList.add(e.title);
         }
